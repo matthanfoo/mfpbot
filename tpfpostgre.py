@@ -49,7 +49,7 @@ def execute_pgsql(sql: str, values=[], fetchall=False, fetchone=False, fetchmany
         
         print(f'successful execution of pgsql: \'{sql}\'')
     except Exception as e:
-        print(f'pgsql fail with exception {e}')
+        print(f'pgsql fail with exception {e}, sql: {sql}')
         result = e 
     
     cur.close()
