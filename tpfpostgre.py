@@ -122,6 +122,8 @@ def username_validation(username,userid):
     usernamelistpre = execute_pgsql(f'SELECT username FROM all_users',fetchall=True)
     if usernamelistpre:
         usernamelist = [x[0] for x in usernamelistpre]
+    else:
+        usernamelist = []
     print('list of usernames: ', usernamelist)
     if username in usernamelist:
         pass #if username exists, leave return value as False (i.e. username not available)
