@@ -40,20 +40,24 @@ def execute_pgsql(sql: str, values=[], fetchall=False, fetchone=False, fetchmany
             if len(values)==0:
                 print('fetchone, lv=0')
                 resultpre = cur.execute(sql)
-                result = resultpre.fetchone()
+                if resultpre:
+                    result = resultpre.fetchone()
             else:
                 print('fetchone, lv=+')
                 resultpre = cur.execute(sql, values)
-                result = resultpre.fetchone()
+                if resultpre:
+                    result = resultpre.fetchone()
         elif fetchmany:
             if len(values)==0:
                 print('fetchmany, lv=0')
                 resultpre = cur.execute(sql)
-                result = resultpre.fetchmany()
+                if resultpre:
+                    result = resultpre.fetchmany()
             else:
                 print('fetchmany, lv=+')
                 resultpre = cur.execute(sql, values)
-                result = resultpre.fetchmany()
+                if resultpre:
+                    result = resultpre.fetchmany()
         else:
             if len(values)==0:
                 print('nofetchall, lv=0')
@@ -115,7 +119,9 @@ def username_validation(username,userid):
 
     #look for username in all_users username column
     #if cannot find,
-    usernamelist = [x[0] for x in execute_pgsql(f'SELECT username FROM all_users',fetchall=True)]
+    usernamelistpre = execute_pgsql(f'SELECT username FROM all_users',fetchall=True)
+    if usernamelistpre:
+        usernamelist = [x[0] for x in usernamelistpre]
     print('list of usernames: ', usernamelist)
     if username in usernamelist:
         pass #if username exists, leave return value as False (i.e. username not available)
