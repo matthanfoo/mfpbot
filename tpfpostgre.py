@@ -17,7 +17,8 @@ def execute_pgsql(sql: str, values=[], fetchall=False, fetchone=False, fetchmany
     #SET TOKEN AS MFPNEWBOT TOKEN
     API_TOKEN = "5948121349:AAF_BtTRt0ckuYnZbDO81pv7aOVpZAT4aVs""5948121349:AAF_BtTRt0ckuYnZbDO81pv7aOVpZAT4aVs"
     #SET DB URL FROM RAILWAY
-    DB_URL = 'postgresql://postgres:ZvoYvy6Lp78aZm2MBk5p@containers-us-west-155.railway.app:7864/railwaypostgresql://postgres:ZvoYvy6Lp78aZm2MBk5p@containers-us-west-155.railway.app:7864/railway'
+    DB_URL = "postgresql://postgres:ZvoYvy6Lp78aZm2MBk5p@containers-us-west-155.railway.app:7864/railwaypostgresql://postgres:ZvoYvy6Lp78aZm2MBk5p@containers-us-west-155.railway.app:7864/railway"
+   
     conn = psycopg2.connect(DB_URL, sslmode='require')
     cur = conn.cursor()
 
