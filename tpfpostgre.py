@@ -27,23 +27,31 @@ def execute_pgsql(sql: str, values=[], fetchall=False, fetchone=False, fetchmany
     try:
         if fetchall:
             if len(values)==0:
+                print('fetchall, lv=0')
                 result = cur.execute(sql).fetchall()
             else:
+                print('fetchall, lv=+')
                 result = cur.execute(sql, values).fetchall()
         elif fetchone: 
             if len(values)==0:
+                print('fetchone, lv=0')
                 result = cur.execute(sql).fetchone()
             else:
+                print('fetchone, lv=+')
                 result = cur.execute(sql, values).fetchone()
         elif fetchmany:
             if len(values)==0:
+                print('fetchmany, lv=0')
                 result = cur.execute(sql).fetchmany()
             else:
+                print('fetchmany, lv=+')
                 result = cur.execute(sql, values).fetchmany()
         else:
             if len(values)==0:
+                print('nofetchall, lv=0')
                 result = cur.execute(sql)
             else:
+                print('nofetchall, lv=+')
                 result = cur.execute(sql, values)
         conn.commit()
         
