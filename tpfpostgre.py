@@ -147,7 +147,7 @@ def userid_exists(userid):
 
     result = execute_pgsql(f'SELECT * FROM all_users WHERE userid=\'{userid}\'',fetchall=True)
 
-    if len(result) == 0: #userid not in userdata.db -- leave return value as False (user id does not exist)
+    if not result: #userid not in userdata.db -- leave return value as False (user id does not exist)
         pass
     elif len(result) == 1: #userid is in userdata.db -- change return value to username associated with userid
         userid_exists = result[0][1]
