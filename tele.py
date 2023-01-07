@@ -1,4 +1,4 @@
-heroku buildpacks:set heroku/python
+print('running')
 import logging
 import datetime
 import sqlite3
@@ -10,7 +10,7 @@ from dbcontrol import estab_conn
 from telegram import Update, InputTextMessageContent, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, ContextTypes, CommandHandler, CallbackQueryHandler, CallbackContext, ConversationHandler
 from telepythonfunctions import *
-
+print('running2')
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
