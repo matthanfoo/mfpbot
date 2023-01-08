@@ -162,7 +162,7 @@ def usermacros_created(userid):
     '''checks if user has entered their base calorie goal before -- return True if they have'''
     returnvalue = False
 
-    username = execute_pgsql(f'SELECT username FROM all_users WHERE userid = \'{userid}\'',fetchone=True) #find username based on user_id
+    username = execute_pgsql(f'SELECT username FROM all_users WHERE \'userid\' = \'{userid}\'',fetchone=True) #find username based on user_id
         
     usernamewithtracking = 'tracking_' + username #create name of table to search for (formatted as tracking_username)
 
