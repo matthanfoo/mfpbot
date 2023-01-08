@@ -101,7 +101,9 @@ def username_validation(username,userid):
             #sql - create unique user activitylog
             sql = f'CREATE TABLE activitylog_{username} (id SERIAL PRIMARY KEY, dtg TEXT, subtype TEXT, title TEXT, calorie INT, description TEXT, cost REAL, printstring TEXT)'
             execute_pgsql(sql)
-            
+            sql2 = f'CREATE TABLE uniquedata_{username} (id INTEGER SERIAL PRIMARY KEY, name TEXT, quantity, quantityunit, calorie, cpf)'
+            execute_pgsql(sql2)
+
             try:
                 usernamewithtracking = 'tracking_' + username #create name of table to search for (formatted as tracking_username)
                 sql = f'''CREATE TABLE IF NOT EXISTS {usernamewithtracking} (
@@ -119,6 +121,23 @@ def username_validation(username,userid):
             "money"	REAL) '''
                 execute_pgsql(sql)
                 execute_pgsql('INSERT INTO all_users VALUES(%s,%s)',(userid, username))
+
+
+                conn3 = 'basedata.db'
+                cur3 = conn3.cursor()
+                #get alldata rows from basedata
+                rows = cur3.execute('SELECT * FROM alldata').fetchall()
+                print(rows)
+                DB_URL = "postgresql://postgres:ZvoYvy6Lp78aZm2MBk5p@containers-us-west-155.railway.app:7864/railway"
+                conn = psycopg2.connect(DB_URL, sslmode='require')
+                cursor = conn.cursor()
+                insert_query = f'insert into uniquedata_{username} (name, quantity, quantityunit, calorie, cpf) values %s,%s,%s,%s,%s'
+                psycopg2.extras.execute_values (cursor, insert_query, rows, template=None, page_size=100
+                conn3.close()
+                conn.commit()
+                cur.close()
+                conn.close()
+                
                 send_to_admin(f'created new tracking table for {username} and inserted {username} into all_users tagged to {userid}')
             except Exception as e:
                 print('newusercreationfail:', e)
@@ -402,13 +421,25 @@ ${costdisplay}'''
             return 0,0,0,0,0,0
 
 
-print(username_validation('matthanfoo', '12901937'))
-print(userid_exists('12901937'))
-print(usermacros_created('12901937'))
-print(usermacros_created('12901937'))
-print(sql_set_defaultmacro('calout', 2810, '12901937'))
-print(display_macros('matthanfoo'))
-print(log_macros('matthanfoo'))
-print(get_defaults('matthanfoo', 'calout'))
-print(fetch_today_activity('matthanfoo'))
-print(display_activity_log('matthanfoo', True))
+def alldata():
+    
+)
+
+
+
+
+
+
+
+
+##
+##print(username_validation('matthanfoo', '12901937'))
+##print(userid_exists('12901937'))
+##print(usermacros_created('12901937'))
+##print(usermacros_created('12901937'))
+##print(sql_set_defaultmacro('calout', 2810, '12901937'))
+##print(display_macros('matthanfoo'))
+##print(log_macros('matthanfoo'))
+##print(get_defaults('matthanfoo', 'calout'))
+##print(fetch_today_activity('matthanfoo'))
+##print(display_activity_log('matthanfoo', True))
