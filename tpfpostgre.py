@@ -126,13 +126,16 @@ def username_validation(username,userid):
                 conn3 = sqlite3.connect('basedata.db')
                 cur3 = conn3.cursor()
                 #get alldata rows from basedata
-                rows = cur3.execute('SELECT * FROM alldata').fetchall()
-                print(rows)
+                data = cur3.execute('SELECT * FROM alldata').fetchall()
+                print(data)
                 DB_URL = "postgresql://postgres:ZvoYvy6Lp78aZm2MBk5p@containers-us-west-155.railway.app:7864/railway"
                 conn = psycopg2.connect(DB_URL, sslmode='require')
                 cursor = conn.cursor()
-                insert_query = f'insert into uniquedata_{username} (name, quantity, quantityunit, calorie, cpf) values %s,%s,%s,%s,%s'
-                psycopg2.extras.execute_values (cursor, insert_query, rows, template=None, page_size=100)
+
+                records_list_template = ','.join(['%s'] * len(data))
+                insert_query = 'insert into uniquedata_{username} (name, quantity, quantityunit, calorie, cpf) values {}'.format(records_list_template)
+                cursor.execute(insert_query, data)
+
                 conn3.close()
                 conn.commit()
                 cursor.close()
