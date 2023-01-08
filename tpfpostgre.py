@@ -132,7 +132,7 @@ def username_validation(username,userid):
                 conn = psycopg2.connect(DB_URL, sslmode='require')
                 cursor = conn.cursor()
                 insert_query = f'insert into uniquedata_{username} (name, quantity, quantityunit, calorie, cpf) values %s,%s,%s,%s,%s'
-                psycopg2.extras.execute_values (cursor, insert_query, rows, template=None, page_size=100
+                psycopg2.extras.execute_values (cursor, insert_query, rows, template=None, page_size=100)
                 conn3.close()
                 conn.commit()
                 cur.close()
