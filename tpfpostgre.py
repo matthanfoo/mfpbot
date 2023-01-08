@@ -68,7 +68,7 @@ def execute_pgsql(sql: str, values=[], fetchall=False, fetchone=False, fetchmany
                 result = cur.execute(sql, values)
         conn.commit()
         
-        print(f'successful execution of pgsql: \'{sql}\'')
+        print(f'successful execution of pgsql: result: {result}, sql: \'{sql}\'')
     except Exception as e:
         print(f'pgsql fail with exception {e}, sql: {sql}')
         result = e 
@@ -163,6 +163,7 @@ def usermacros_created(userid):
     returnvalue = False
 
     username = execute_pgsql(f'SELECT username FROM all_users WHERE userid = \'{userid}\'',fetchone=True) #find username based on user_id
+        
     usernamewithtracking = 'tracking_' + username #create name of table to search for (formatted as tracking_username)
 
     #retrieve default calout value to check if bcg has been entered before
