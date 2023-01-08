@@ -101,7 +101,7 @@ def username_validation(username,userid):
             #sql - create unique user activitylog
             sql = f'CREATE TABLE activitylog_{username} (id SERIAL PRIMARY KEY, dtg TEXT, subtype TEXT, title TEXT, calorie INT, description TEXT, cost REAL, printstring TEXT)'
             execute_pgsql(sql)
-            sql2 = f'CREATE TABLE uniquedata_{username} (id INTEGER SERIAL PRIMARY KEY, name TEXT, quantity, quantityunit, calorie, cpf)'
+            sql2 = f'CREATE TABLE uniquedata_{username} (id SERIAL PRIMARY KEY, name TEXT, quantity, quantityunit, calorie, cpf)'
             execute_pgsql(sql2)
 
             try:
