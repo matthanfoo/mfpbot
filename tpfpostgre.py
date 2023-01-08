@@ -430,8 +430,7 @@ ${costdisplay}'''
 
 
 
-##
-##print(username_validation('matthanfoo', '12901937'))
+print(username_validation('matthanfoo', '12901937'))
 ##print(userid_exists('12901937'))
 ##print(usermacros_created('12901937'))
 ##print(usermacros_created('12901937'))
