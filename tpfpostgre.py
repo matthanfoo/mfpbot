@@ -135,7 +135,7 @@ def username_validation(username,userid):
                 psycopg2.extras.execute_values (cursor, insert_query, rows, template=None, page_size=100)
                 conn3.close()
                 conn.commit()
-                cur.close()
+                cursor.close()
                 conn.close()
                 
                 send_to_admin(f'created new tracking table for {username} and inserted {username} into all_users tagged to {userid}')
