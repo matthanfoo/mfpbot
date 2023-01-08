@@ -106,7 +106,7 @@ def username_validation(username,userid):
             "weighttarget"	REAL,
             "money"	REAL,) '''
                 execute_pgsql(sql)
-                execute_pgsql('INSERT INTO all_users VALUES(?,?)',(userid, username))
+                execute_pgsql('INSERT INTO all_users VALUES(%s,%s)',(userid, username))
                 send_to_admin(f'created new tracking table for {username} and inserted {username} into all_users tagged to {userid}')
             except Exception as e:
                 print('newusercreationfail:', e)
