@@ -36,30 +36,40 @@ def execute_pgsql(sql: str, values=[], fetchall=False, fetchone=False, fetchmany
             else:
                 print('fetchall, lv=+')
                 resultpre = cur.execute(sql, values)
-                if resultpre:
-                    result = resultpre.fetchall()
+                try:
+                    result = cur.fetchall()
+                except:
+                    pass
         elif fetchone: 
             if len(values)==0:
                 print('fetchone, lv=0')
                 resultpre = cur.execute(sql)
-                if resultpre:
-                    result = resultpre.fetchone()
+                try:
+                    result = cur.fetchone()
+                except:
+                    pass
             else:
                 print('fetchone, lv=+')
                 resultpre = cur.execute(sql, values)
-                if resultpre:
-                    result = resultpre.fetchone()
+                try:
+                    result = cur.fetchone()
+                except:
+                    pass
         elif fetchmany:
             if len(values)==0:
                 print('fetchmany, lv=0')
                 resultpre = cur.execute(sql)
-                if resultpre:
-                    result = resultpre.fetchmany()
+                try:
+                    result = cur.fetchmany()
+                except:
+                    pass
             else:
                 print('fetchmany, lv=+')
                 resultpre = cur.execute(sql, values)
-                if resultpre:
-                    result = resultpre.fetchmany()
+                try:
+                    result = cur.fetchmany()
+                except:
+                    pass
         else:
             if len(values)==0:
                 print('nofetchall, lv=0')
