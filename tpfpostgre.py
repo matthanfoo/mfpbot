@@ -133,7 +133,7 @@ def username_validation(username,userid):
                 cursor = conn.cursor()
 
                 records_list_template = ','.join(['%s'] * len(data))
-                insert_query = 'insert into uniquedata_{username} (name, quantity, quantityunit, calorie, cpf) values {}'.format(records_list_template)
+                insert_query = 'insert into uniquedata_{} (name, quantity, quantityunit, calorie, cpf) values {}'.format(username, records_list_template)
                 cursor.execute(insert_query, data)
 
                 conn3.close()
