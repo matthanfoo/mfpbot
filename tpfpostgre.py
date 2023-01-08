@@ -29,6 +29,7 @@ def execute_pgsql(sql: str, values=[], fetchall=False, fetchone=False, fetchmany
             if len(values)==0:
                 print('fetchall, lv=0')
                 resultpre = cur.execute(sql)
+                print(resultpre)
                 if resultpre:
                     result = resultpre.fetchall()
             else:
