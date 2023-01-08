@@ -123,7 +123,7 @@ def username_validation(username,userid):
                 execute_pgsql('INSERT INTO all_users VALUES(%s,%s)',(userid, username))
 
 
-                conn3 = sqlite3.conect('basedata.db')
+                conn3 = sqlite3.connect('basedata.db')
                 cur3 = conn3.cursor()
                 #get alldata rows from basedata
                 rows = cur3.execute('SELECT * FROM alldata').fetchall()
