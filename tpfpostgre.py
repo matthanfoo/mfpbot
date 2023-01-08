@@ -104,7 +104,7 @@ def username_validation(username,userid):
             "fattarget"	INT,
             "weight"	REAL,
             "weighttarget"	REAL,
-            "money"	REAL,) '''
+            "money"	REAL) '''
                 execute_pgsql(sql)
                 execute_pgsql('INSERT INTO all_users VALUES(%s,%s)',(userid, username))
                 send_to_admin(f'created new tracking table for {username} and inserted {username} into all_users tagged to {userid}')
@@ -145,7 +145,7 @@ def userid_exists(userid):
     '''checks if userid is already in userdata.db, if it is return username associated with userid, if not return False'''
     userid_exists = False
 
-    result = execute_pgsql(f'SELECT * FROM all_users WHERE userid=\'{userid}\'',fetchall=True)
+    result = execute_pgsql(f'SELECT * FROM all_users WHERE \'userid\'=\'{userid}\'',fetchall=True)
 
     if not result: #userid not in userdata.db -- leave return value as False (user id does not exist)
         pass
