@@ -322,7 +322,7 @@ def fetch_today_activity(username, datedifferent=False):
         todaydtg = datedifferent
     else:
         todaydtg = datetime.datetime.now().strftime("%d-%m-%Y" )
-    sql = f'SELECT * FROM activitylog WHERE dtg LIKE \'{todaydtg}%\''  #get all todays activities from user's activitylog
+    sql = f'SELECT * FROM activitylog_{username} WHERE dtg LIKE \'{todaydtg}%\''  #get all todays activities from user's activitylog
     dayactivitylog = False
     try:
         dayactivitylog = execute_pgsql(sql,fetchall=True)

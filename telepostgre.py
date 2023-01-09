@@ -324,17 +324,17 @@ async def updateweight(update: Update, context):
             try:
                 execute_pgsql(presql) #IF WEIGHT FOR TODAY INPUTTED BEFORE THEN DELETE
                 execute_pgsql(f'INSERT INTO tracking_{username}(date,weight) VALUES(%s,%s)', (datetoday, value))
-                conn.commit()
-                conn.close()
+        
                 x = True
             except Exception as e:
                 print(e)
+                send_to_admin(f'updateweight fail for user {username} with exception {e}')
             if x: #successful set of weight
                 await context.bot.send_message(chat_id=update.effective_chat.id, text=f'your weight has been updated to {value}kg')
                 await context.bot.send_message(chat_id=update.effective_chat.id, text ='type /help to view other functions' )
             else: #unsuccessful set of default macro -- tell user got issue and tell admin got issue
                 await context.bot.send_message(chat_id=update.effective_chat.id, text=f'there was an issue setting this value\ntry using /updateweight again or contact bot admin at @xxx')
-                send_to_admin(f'updateweight fail for user {username} with exception {e}')
+                
 
         else:
             await context.bot.send_message(chat_id=update.effective_chat.id, text='you have not created an account yet \n\n type /username <your username> to create an account \n\nlike this: /username user1.')
