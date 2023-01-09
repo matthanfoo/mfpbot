@@ -120,6 +120,7 @@ def username_validation(username,userid):
             "weighttarget"	REAL,
             "money"	REAL) '''
                 execute_pgsql(sql)
+                execute_pgsql(f'INSERT INTO {usernamewithtracking} (date, weight) VALUES(%s, %s)', ('default', 60.0))
                 execute_pgsql('INSERT INTO all_users VALUES(%s,%s)',(userid, username))
 
 
