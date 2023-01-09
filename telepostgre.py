@@ -288,7 +288,7 @@ async def setw(update: Update, context):
     if len(context.args) == 0:
         await context.bot.send_message(chat_id=update.effective_chat.id, text='type /setw <your weight goal> to set your weight goal in kg. \n\nlike this: /setw 60')
     try:
-        value = int(context.args[0])
+        value = float(context.args[0])
     except:
         await context.bot.send_message(chat_id=update.effective_chat.id, text='<your weight goal> must be a number (can be a decimal)')
     else:
