@@ -27,30 +27,83 @@ def send_to_admin(message='hello'):
     requests.get(url).json()
 
 
-def execute_pgsql(sql: str, values=[]: list):
+def execute_pgsql(sql: str, values=[], fetchall=False, fetchone=False, fetchmany=False):
 
     #SETUP
     #SET TOKEN AS MFPNEWBOT TOKEN
     API_TOKEN = "5948121349:AAF_BtTRt0ckuYnZbDO81pv7aOVpZAT4aVs""5948121349:AAF_BtTRt0ckuYnZbDO81pv7aOVpZAT4aVs"
     #SET DB URL FROM RAILWAY
-    DB_URL = 'postgresql://postgres:ZvoYvy6Lp78aZm2MBk5p@containers-us-west-155.railway.app:7864/railwaypostgresql://postgres:ZvoYvy6Lp78aZm2MBk5p@containers-us-west-155.railway.app:7864/railway'
+    DB_URL = "postgresql://postgres:ZvoYvy6Lp78aZm2MBk5p@containers-us-west-155.railway.app:7864/railway"
+   
     conn = psycopg2.connect(DB_URL, sslmode='require')
     cur = conn.cursor()
-    
+
+    result = False
     #TRY BLOCK
     try:
-        if len(values)==0:
-            cur.execute(sql)
+        if fetchall:
+            if len(values)==0:
+                print('fetchall, lv=0')
+                cur.execute(sql)
+                try:
+                    result = cur.fetchall()
+                except:
+                    pass
+            else:
+                print('fetchall, lv=+')
+                resultpre = cur.execute(sql, values)
+                try:
+                    result = cur.fetchall()
+                except:
+                    pass
+        elif fetchone: 
+            if len(values)==0:
+                print('fetchone, lv=0')
+                resultpre = cur.execute(sql)
+                try:
+                    result = cur.fetchone()
+                except:
+                    pass
+            else:
+                print('fetchone, lv=+')
+                resultpre = cur.execute(sql, values)
+                try:
+                    result = cur.fetchone()
+                except:
+                    pass
+        elif fetchmany:
+            if len(values)==0:
+                print('fetchmany, lv=0')
+                resultpre = cur.execute(sql)
+                try:
+                    result = cur.fetchmany()
+                except:
+                    pass
+            else:
+                print('fetchmany, lv=+')
+                resultpre = cur.execute(sql, values)
+                try:
+                    result = cur.fetchmany()
+                except:
+                    pass
         else:
-            cur.execute(sql, values)
-        conn.commit()
-        print(f'successful execution of pgsql: \'{sql}\'')
-    except Exception as e:
-        print(f'pgsql fail with exception {e}')
+            if len(values)==0:
+                print('nofetchall, lv=0')
+                result = cur.execute(sql)
 
+            else:
+                print('nofetchall, lv=+')
+                result = cur.execute(sql, values)
+        conn.commit()
+        
+        print(f'successful execution of pgsql: result: {result}, sql: \'{sql}\'')
+    except Exception as e:
+        print(f'pgsql fail with exception {e}, sql: {sql}')
+        result = e 
     
     cur.close()
     conn.close()
+    return result
     
 
 #verify if account created -- called by all functions except start and username -- returns username if userid exists and False if not
