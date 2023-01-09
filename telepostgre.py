@@ -353,7 +353,7 @@ async def viewlog(update: Update, context):
     printstring = display_activity_log(username, True) #return a formatted activity log print string
     printstring += '\n\ntype /newentry to add a new activity'
     if printstring != 'no activities today :/':
-        printstring += '\n type /viewmacros to view today\'s macros'
+        printstring += '\ntype /viewmacros to view today\'s macros'
     await context.bot.send_message(chat_id=update.effective_chat.id, text=printstring)
 
 
@@ -373,7 +373,7 @@ async def viewmacros(update: Update, context):
         send_to_admin(f'display_macros called by {username} and failed with exception {e}')
     else:
         printstring += '\n\ntype /newentry to add a new activity'
-        printstring += '\n type /setmacros to change your macro goals'
+        printstring += '\ntype /setmacros to change your macro goals'
         await context.bot.send_message(chat_id=update.effective_chat.id, text=printstring)
         print(f'display_macros called by {username} and returned the formatted printstring correctly')
 

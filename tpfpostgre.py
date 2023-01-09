@@ -363,8 +363,10 @@ def display_activity_log(username, display, datedifferent=False):
         return c, p, f
 
     if datedifferent:
-        fetch_today_activity(username, datedifferent)
-    dayactivitylog = fetch_today_activity(username) #fetch all activities from today first
+        dayactivitylog = fetch_today_activity(username, datedifferent)
+    else:
+        dayactivitylog = fetch_today_activity(username) #fetch all activities from today first
+
     if dayactivitylog:
         calin = 0
         calout = get_defaults(username, 'calout')
@@ -423,7 +425,8 @@ ${costdisplay}'''
         if display: #return printstring to viewlog tele function
             return 'no activities today :/'
         else: #return zeros to log macros function
-            return 0,0,0,0,0,0
+            calout = get_defaults(username, 'calout')
+            return 0,calout,0,0,0,0
 
 
 
