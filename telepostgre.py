@@ -7,7 +7,7 @@ from time import sleep
 import re
 import schedule
 import requests
-from dbcontrol import estab_conn
+##from dbcontrol import estab_conn
 from telegram import Update, InputTextMessageContent, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, ContextTypes, CommandHandler, CallbackQueryHandler, CallbackContext, ConversationHandler
 from tpfpostgre import *
@@ -18,7 +18,7 @@ logging.basicConfig(
 )
 
 print(f'tele.py running started at time: {datetime.datetime.now()}')
-application = ApplicationBuilder().token("5948121349:AAF_BtTRt0ckuYnZbDO81pv7aOVpZAT4aVs").build()
+application = ApplicationBuilder().token("5948121349:AAG3k_7Wv-aCxyQlJzCtR0U4vcN8-onmUqI").build()
 
 def send_to_admin(message='hello'):
     TOKEN = "5811073358:AAGgEtuRoV4T1f4zKjukgu3-gTJpAqogru0"
@@ -318,13 +318,12 @@ async def updateweight(update: Update, context):
         if username:
             datetoday = datetime.datetime.now().strftime("%d-%m-%Y")
             print(datetoday)
-            conn = estab_conn('userdata')
-            cur = conn.cursor()
+            
             presql = f'DELETE FROM tracking_{username} where date LIKE \'%{datetoday}%\''
             x= False
             try:
-                cur.execute(presql) #IF WEIGHT FOR TODAY INPUTTED BEFORE THEN DELETE
-                cur.execute(f'INSERT INTO tracking_{username}(date,weight) VALUES(?,?)', (datetoday, value))
+                execute_pgsql(presql) #IF WEIGHT FOR TODAY INPUTTED BEFORE THEN DELETE
+                execute_pgsql(f'INSERT INTO tracking_{username}(date,weight) VALUES(%s,%s)', (datetoday, value))
                 conn.commit()
                 conn.close()
                 x = True
@@ -411,8 +410,7 @@ async def viewgymhandle(update: Update, context):
     print(group)
     await query.answer()
 
-    userdb = estab_conn(username)
-    cur = userdb.cursor()
+  
     #get all gym records for specified group - search for entries with names that contain <group> AND lift (incase like meals got core inside also)
     names = execute_pgsql(f'SELECT * FROM uniquedata_{username} WHERE name LIKE \'%lift%\' AND name LIKE \'%{group}%\'',fetchall=True)
     lifts_string = f'''current PBs for {group}
@@ -623,8 +621,7 @@ async def select_option(update: Update, context):
     except:
         await update.callback_query.answer()
         await update.callback_query.edit_message_text(message)
-    usernamedb = estab_conn(username)
-    cur = usernamedb.cursor()
+    
 
     print(f'searchname: {searchname}')
     splitsearchname = searchname.split(' ')
