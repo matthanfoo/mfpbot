@@ -214,9 +214,10 @@ def usermacros_created(userid):
 def sql_set_defaultmacro(macro, value, userid):
     try:
         username = execute_pgsql(f'SELECT username FROM all_users WHERE userid=\'{userid}\'',fetchone=True)[0]
+        
         usernamewithtracking = 'tracking_' + username
         sql = f'UPDATE {usernamewithtracking} SET %s = %s WHERE date = %s'
-        execute_pgsql(sql, (macro, value, 'default')
+        execute_pgsql(sql, (macro, value, 'default'))
         print(f'update {macro} to {value} success for user {username} ')
         return 'true'
     except Exception as e:
