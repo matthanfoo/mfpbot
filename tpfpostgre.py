@@ -202,7 +202,7 @@ def usermacros_created(userid):
     usernamewithtracking = 'tracking_' + username #create name of table to search for (formatted as tracking_username)
 
     #retrieve default calout value to check if bcg has been entered before
-    result = execute_pgsql(f'SELECT calout FROM {usernamewithtracking} WHERE date=\'default\'', fetchall=True)
+    result = execute_pgsql(f'SELECT calout FROM {usernamewithtracking} WHERE date=\'default\'', fetchall=True)[0][0]
     print(result)
     if result: #calout has been set before
         returnvalue = True
