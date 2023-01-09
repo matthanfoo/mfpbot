@@ -686,14 +686,13 @@ async def req_for_quantity(update: Update, context):
         context.user_data['selectedoption'] = selectedoption
         context.user_data['searchid'] = searchid # save the database id of selected entry to user_data
         print('successful option select')
-    except Exception as e:
+    except ValueError:
         print(e)
-        if e == ValueError:
-            keyboard = [[InlineKeyboardButton(text="select different option", callback_data='sdo'),]]
-            reply_markup = InlineKeyboardMarkup(keyboard)
-            await update.message.reply_text(text='invalid option\n\nclick \U0001F447 to re-select option', reply_markup=reply_markup)
-            return INVALID_OPTION #if invalid input and cannot find in resultsdict, revert by using INVALID_OPTION state to handle callbackquery sdo
-
+        keyboard = [[InlineKeyboardButton(text="select different option", callback_data='sdo'),]]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        await update.message.reply_text(text='invalid option\n\nclick \U0001F447 to re-select option', reply_markup=reply_markup)
+        return INVALID_OPTION #if invalid input and cannot find in resultsdict, revert by using INVALID_OPTION state to handle callbackquery sdo
+    except:
         #if update.message.text is unavailable, means either backward or invalid call
         try:
             #if context.user_data['selectoption' is available, it means its a callback where so and si have been saved before
