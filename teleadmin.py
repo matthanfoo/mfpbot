@@ -102,7 +102,7 @@ async def autolog(update: Update, context):
     if singleautologsuccess:
         x = execute_pgsql(f"SELECT logcount FROM logtracker WHERE date = '{testdatestring}'",fetchone=True)
         if x: #if logmacros has been called for data before
-            execute_pgsql(f'UPDATE logtracker SET logcount = %s WHERE date = %s', (str(int(x[0])+1), testdatestring)
+            execute_pgsql(f'UPDATE logtracker SET logcount = %s WHERE date = %s', (str(int(x[0])+1), testdatestring))
         else:
             execute_pgsql(f'INSERT INTO logtracker VALUES(%s,%s)', (testdatestring, '1'))
         print('final', execute_pgsql(f'SELECT * FROM logtracker WHERE date = \'{testdatestring}\'',fetchone=True))
