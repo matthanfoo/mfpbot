@@ -295,7 +295,7 @@ def log_macros(username, autocall = False, datedifferent=False):
             testsql = f'SELECT * FROM tracking_{username} where date LIKE \'{datetoday}\''
             test = execute_pgsql(testsql, fetchone=True)
             print(test)
-            sql = f'INSERT INTO tracking_{username} VALUES(?,?,?,?,?,?,?,?,?,?,?,?)'
+            sql = f'INSERT INTO tracking_{username} VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
             execute_pgsql(sql, (datetoday, calin, calout, carbsin, carbtarget, protin, prottarget, fatin, fattarget, weight, weighttarget, money))
             print(f'data logged for day: {datetoday}')
         except Exception as e:
