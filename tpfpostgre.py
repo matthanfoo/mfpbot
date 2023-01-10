@@ -274,7 +274,7 @@ def log_macros(username, autocall = False, datedifferent=False):
     print(autocall)
     if autocall: #if auto call (insert into db)
         try:
-            weightsql = f'SELECT weight from tracking_{username} where date LIKE {datetoday}'
+            weightsql = f"SELECT weight from tracking_{username} where date LIKE '{datetoday}'"
             weightretrieved = execute_pgsql(weightsql, fetchone=True)
             if bool(weightretrieved):
                 weight = weightretrieved[0]
