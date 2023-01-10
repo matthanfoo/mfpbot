@@ -265,7 +265,7 @@ def log_macros(username, autocall = False, datedifferent=False):
     else:
         datetoday = datetime.datetime.now().strftime("%d-%m-%Y" )
     print('datetoday:', datetoday)
-    calin, calout, carbsin, protin, fatin, money = display_activity_log(username, display=False, datedifferent=datedifferent)
+    calin, calout, carbsin, protin, fatin, money = display_activity_log(username, display=False, datedifferent=datetoday)
     carbtarget = get_defaults(username, 'carbtarget')
     prottarget = get_defaults(username, 'prottarget')
     fattarget = get_defaults(username, 'fattarget')
