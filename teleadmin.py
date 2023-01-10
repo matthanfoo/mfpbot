@@ -41,6 +41,7 @@ def send_to_admin(message='hello'):
 async def autolog(update: Update, context):
 
     try:
+        print(update.callback_query.data)
         data = update.callback_query.data
     except:
         data = False
