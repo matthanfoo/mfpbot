@@ -86,7 +86,7 @@ async def autolog(update: Update, context):
     print('sending dd:', True, type(datedifferent))
 
 
-    usernamelist = [usernametup[0] for usernametup in cur.execute('SELECT username FROM all_users').fetchall()]
+    usernamelist = [usernametup[0] for usernametup in execute_pgsql('SELECT username FROM all_users'),fetchall=True)]
     singleautologsuccess = False
     for username in usernamelist:
         try:
@@ -108,8 +108,7 @@ async def autolog(update: Update, context):
         print('final', execute_pgsql(f'SELECT * FROM logtracker WHERE date = \'{testdatestring}\'',fetchone=True))
     else:
         print('not a single autolog was successful')
-    userdata.commit()
-    userdata.close()
+    
 
 
 async def cunt(update: Update, context: CallbackContext):
