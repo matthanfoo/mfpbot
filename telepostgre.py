@@ -412,7 +412,7 @@ async def viewgymhandle(update: Update, context):
 
   
     #get all gym records for specified group - search for entries with names that contain <group> AND lift (incase like meals got core inside also)
-    names = execute_pgsql(f'SELECT * FROM uniquedata_{username} WHERE name LIKE \'%lift%\' AND name LIKE \'%{group}%\'',fetchall=True)
+    names = execute_pgsql(f'SELECT * FROM uniquedata_{username} WHERE name ILIKE \'%lift%\' AND name ILIKE \'%{group}%\'',fetchall=True)
     lifts_string = f'''current PBs for {group}
 ------------------------\n'''
     print('here')
@@ -627,14 +627,14 @@ async def select_option(update: Update, context):
     splitsearchname = searchname.split(' ')
     sql1 = ''
     if len(splitsearchname) == 1:
-        sql1 = f'SELECT * FROM uniquedata_{username} WHERE name LIKE \'%{a}%\' AND name LIKE \'%{searchname}%\''
+        sql1 = f'SELECT * FROM uniquedata_{username} WHERE name LIKE \'%{a}%\' AND name ILIKE \'%{searchname}%\''
     elif len(splitsearchname) == 2:
-        sql1 = f'SELECT * FROM uniquedata_{username} WHERE name LIKE \'%{a}%\' AND name LIKE \'%{splitsearchname[0]}%\' AND name LIKE \'%{splitsearchname[1]}%\''
+        sql1 = f'SELECT * FROM uniquedata_{username} WHERE name LIKE \'%{a}%\' AND name ILIKE \'%{splitsearchname[0]}%\' AND name ILIKE \'%{splitsearchname[1]}%\''
     elif len(splitsearchname) == 3:
-        sql1 = f'SELECT * FROM uniquedata_{username} WHERE name LIKE \'%{a}%\' AND name LIKE \'%{splitsearchname[0]}%\' AND name LIKE \'%{splitsearchname[1]}%\' AND name LIKE \'%{splitsearchname[2]}%\''
+        sql1 = f'SELECT * FROM uniquedata_{username} WHERE name LIKE \'%{a}%\' AND name ILIKE \'%{splitsearchname[0]}%\' AND name ILIKE \'%{splitsearchname[1]}%\' AND name ILIKE \'%{splitsearchname[2]}%\''
     elif len(splitsearchname) > 3:
         x = ' '.join(splitsearchname[2:])
-        sql1 = f'SELECT * FROM uniquedata_{username} WHERE name LIKE \'%{a}%\' AND name LIKE \'%{splitsearchname[0]}%\' AND name LIKE \'%{splitsearchname[1]}%\' AND name LIKE \'%{x}%\''
+        sql1 = f'SELECT * FROM uniquedata_{username} WHERE name LIKE \'%{a}%\' AND name ILIKE \'%{splitsearchname[0]}%\' AND name ILIKE \'%{splitsearchname[1]}%\' AND name ILIKE \'%{x}%\''
     print(sql1)
     try:
         results = execute_pgsql(sql1,fetchall=True)
