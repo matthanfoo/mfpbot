@@ -1852,6 +1852,6 @@ if __name__ == '__main__':
     application.add_handler(unknown_handler)
     application.add_handler(CallbackQueryHandler(testhandlerfunction))
 
-    print(f'tele.py running completed at time: {datetime.datetime.now()}')
+    print(f'tele.py polling at time: {datetime.datetime.now()}')
     application.run_polling()
     print('tele ended')
