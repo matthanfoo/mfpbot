@@ -1,4 +1,5 @@
-print('running')
+print('running telepostgre')
+import teleadmin
 import psycopg2
 import logging
 import datetime
@@ -1853,4 +1854,4 @@ if __name__ == '__main__':
 
     print(f'tele.py running completed at time: {datetime.datetime.now()}')
     application.run_polling()
-    print('here')
+    print('tele ended')

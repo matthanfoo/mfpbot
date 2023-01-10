@@ -1,4 +1,4 @@
-heroku buildpacks:set heroku/python
+print('running teleadmin')
 import logging
 import datetime
 import sqlite3
@@ -116,19 +116,19 @@ async def cunt(update: Update, context: CallbackContext):
     message = "run that shit boi"
     await context.bot.send_message(chat_id=update.effective_chat.id, text=message)
 
-if __name__ == '__main__':
-
-    send_to_admin(f'tele.py running started at time: {datetime.datetime.now()}')
-    cunt_handler = CommandHandler('cunt', cunt)
-    log_handler = CommandHandler('logshit', autolog)
-    loganyway = CallbackQueryHandler(autolog, 'log_anyway')
 
 
-    application.add_handler(cunt_handler)
-    application.add_handler(log_handler)
-    application.add_handler(loganyway)
-    # application.add_handler(CallbackQueryHandler(testhandlerfunction))
+send_to_admin(f'tele.py running started at time: {datetime.datetime.now()}')
+cunt_handler = CommandHandler('cunt', cunt)
+log_handler = CommandHandler('logshit', autolog)
+loganyway = CallbackQueryHandler(autolog, 'log_anyway')
 
 
-    application.run_polling()
-    print('here')
+application.add_handler(cunt_handler)
+application.add_handler(log_handler)
+application.add_handler(loganyway)
+# application.add_handler(CallbackQueryHandler(testhandlerfunction))
+
+print('polling teleadmin')
+application.run_polling()
+print('teleadmin ended')
