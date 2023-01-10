@@ -86,7 +86,7 @@ async def autolog(update: Update, context):
     print('sending dd:', True, type(datedifferent))
 
 
-    usernamelist = [usernametup[0] for usernametup in execute_pgsql('SELECT username FROM all_users'),fetchall=True)]
+    usernamelist = [usernametup[0] for usernametup in execute_pgsql('SELECT username FROM all_users',fetchall=True)]
     singleautologsuccess = False
     for username in usernamelist:
         try:
