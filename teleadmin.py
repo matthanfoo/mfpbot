@@ -67,7 +67,7 @@ async def autolog(update: Update, context):
 
 
     
-    loggeddates = [date[0] for date in execute_pgsql('select date from logtracker',fetchall=True]# find a list of all logged dates
+    loggeddates = [date[0] for date in execute_pgsql('select date from logtracker',fetchall=True)]# find a list of all logged dates
     if not datedifferent:
         datedifferent = datetime.datetime.now()  # if no date provided with logshit call, put datedifferent as todays datetime
     testdatestring = datedifferent.strftime('%d-%m-%Y')
